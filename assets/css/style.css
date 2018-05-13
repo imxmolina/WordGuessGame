@@ -15,6 +15,7 @@ body {
     margin-right:auto;
     margin-left:auto;
     border:10px solid red;
+    padding-top:20px;
 }
 
 #secretWord {
@@ -24,6 +25,7 @@ body {
 
 
 #guessWord{
+    padding-top:40px;
     font-size:55px;
     text-align:center;
     font-family: 'Kanit', sans-serif;
@@ -35,6 +37,7 @@ body {
     background-color: pink;
     border: 10px dotted limegreen;
     color: red;
+    padding:10px;
     margin-top:20px;
     margin-right:auto;
     margin-left:auto;
