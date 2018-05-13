@@ -3,101 +3,145 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="assets/CSS/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Kanit:800|Roboto+Mono" rel="stylesheet">
     <title>WORD GUESS</title>
 </head>
 
 <body>
 
     <div id="game">
-        <p>Press space bar to start playing!</p>
-        <p id="guessWord"></p>
-        <p id="guessLeft"></p>
-        <p id="livesLeft"></p>
-        <p id+"winTotal"></p>
+        <div id="displayWord">
+            <p id="secretWord"> THE SECRET WORD IS:</p>
+            <p id="guessWord"></p>
+        </div>
+        <div id="scoreBox">
+            <p id="lettersGuessed">Already Guessed: </p>
+            <p id="guesses">Guesses: 7</p>
+            <p id="lives">Lives: 3</p>
+            <p id="wins">Wins: 0</p>
+        </div>
     </div>
+
 
     <script type="text/javascript">
 
-       // VARIABLES
-    // ==========================================================================
+        // VARIABLES
 
         //Array of words
-        var wordBank = ["ENCYCLOPEDIA", "PIMPLE", "HAIRBALL", "CHICKPEA", "CAPRISUN", "GREYHOUND",
-        "DUMBWAITER", "BINOCULAR","TRAMPOLINE", "TINFOIL", "TRAPEZOID", "ARTICHOKE", "NIGHTMARE",
-        "LUMBERJACK", "CLOTHESPIN", "PALINDROME", "FLUORIDE"];
+        var wordBank = ["EARTHLING", "DOCUMENTARY", "SWITZERLAND", "CILANTRO", "DOORKNOB", "GREYHOUND",
+            "BUBBLEGUM", "SHOEHORN", "TRAMPOLINE", "ENCYCLOPEDIA", "DAFFODIL", "ARTICHOKE", "NIGHTMARE",
+            "LUMBERJACK", "TOOTHPICK", "CRABAPPLE", "EYEBALL"];
 
         var letterBank = [];
-
-
-        //VARIABLES TO HOLD WINS, LIVES, GUESSES
         var wins = 0;
         var lives = 3;
-        var guesses = 5;
-
-      // FUNCTIONS
-    // =============================================
-    
+        var guesses = 7;
 
 
-   //Function to randomlyy choose word from wordBank
+        var theWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
-   var theWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-       console.log("the word is " + theWord)
+        var remainingLetters = theWord.length;
 
-       //Saves word as _ _ _ 
+        function resetGame() {
+            //VARIABLES TO HOLD WINS, LIVES, GUESSES
+            guesses = 7;
+            // FUNCTIONS
+            //Function to randomlyy choose word from wordBank
+            //reset letterBank again 
+            letterBank = [];
 
-       for (var i = 0; i < theWord.length; i++){
-           letterBank.push("_")
-       }
+            theWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+            remainingLetters = theWord.length;
+            console.log("the word is ? " + theWord)
+            //Saves word as _ _ _ 
+            for (var i = 0; i < theWord.length; i++) {
+                letterBank.push("_")
+            }
+            console.log(letterBank)
+            document.querySelector("#guessWord").innerHTML = letterBank;
 
-      
+        }
 
 
-        //Fuction run whenever user presses key
+
+        resetGame()
+
+
         document.onkeyup = function (event) {
-
-        //Determines which key was pressed.
+            //Determines which key was pressed.
             var blankLetters = event.key.toUpperCase();
             console.log(blankLetters)
-
-
-//// return letters in the dashes
-
-            if (theWord.indexOf(blankLetters) < 0){
+            //// return letters in the dashes
+            if (theWord.indexOf(blankLetters) < 0) {
                 guesses--;
+
+                document.querySelector("#lettersGuessed").innerHTML = "Already Guessed: " + blankLetters;
+                document.querySelector("#guesses").innerHTML = "Guesses: " + guesses;
+            }
+            else if (letterBank.indexOf(blankLetters) > -1) {
+                //ALREADY GUESSED
+            }
+            else {
+                for (i = 0; i < theWord.length; i++) {
+                    if (theWord[i] === blankLetters) {
+                        letterBank[i] = blankLetters;
+                        remainingLetters--;
+                        console.log("REMAINING LETTERS: " + remainingLetters)
+                    }
+                }
             }
 
-            else {
-                for (i = 0; i < theWord.length;i++){
-                    if (theWord[i] === blankLetters){
-                        letterBank[i] = blankLetters;} 
-                    }
-           }
-       
+            console.log(letterBank)
+            document.querySelector("#guessWord").innerHTML = letterBank;
 
-       console.log(letterBank)
-     
-       }
-    
-    
-     
-    
+            console.log("Guesses left " + guesses)
 
 
-       //Variable to hold all the html
+            if (remainingLetters === 0) {
+                wins++;
+                alert("AHHHHHHHHH! You're right the word was " + theWord)
+                resetGame();
+                console.log("Wins " + wins)
+                document.querySelector("#wins").innerHTML = "Wins:" + wins;
 
-      // var html = 
-      // "<p> Guess the word: " + letterBank + "<p>" +
-      // "<p> Guesses left: " + guesses + "<p>" +
-      // "<p> Lives " + lives + "<p>" +
-      // "<p> Wins " + wins + "<p>";
 
-       //Sets inner HTML contents of the #game div to HTML string
-       //document.querySelector("#game").innerHTML = html;
+            }
+            else if (guesses == 0) {
+                lives--;
+                alert("DUH the word was " +theWord)
+                resetGame();
+                console.log("Lives Left " + lives)
+                document.querySelector("#lives").innerHTML = "Lives:" + lives;
 
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+        //Variable to hold all the html
+
+       // var html = 
+       // "<p> Guess the word: " + letterBank + "<p>" ;
+       // "<p> Guesses left: " + guesses + "<p>" ;
+       // "<p> Lives " + lives + "<p>" ;
+       // "<p> Wins " + wins + "<p>";
+
+        //Sets inner HTML contents of the #game div to HTML string
+        //document.querySelector("#game").innerHTML = html;
 
 
     </script>
+
 
 </body>
 

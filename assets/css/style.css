@@ -1,0 +1,43 @@
+
+body {
+    background-image: url("playhouse.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    height:100%;
+}
+
+#displayWord{
+    background-color: white;
+    color:black;
+    width: 50%;
+    height:200px;
+    margin-top:100px;
+    margin-right:auto;
+    margin-left:auto;
+    border:10px solid red;
+}
+
+#secretWord {
+    padding-left:5px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+
+#guessWord{
+    font-size:55px;
+    text-align:center;
+    font-family: 'Kanit', sans-serif;
+    border:10px solid white;
+}
+
+#scoreBox {
+    font-family: 'Roboto Mono', monospace;
+    background-color: pink;
+    border: 10px dotted limegreen;
+    color: red;
+    margin-top:20px;
+    margin-right:auto;
+    margin-left:auto;
+    text-align: center;
+    width:30%;
+}
